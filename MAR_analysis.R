@@ -1,4 +1,4 @@
-###### This simulation is applied to evaluate of our proposed method when the dataset is under country-level attrition setting
+###### This simulation is applied to evaluate of our proposed method when the dataset is under missing at random (MAR)
 #### Specifically, set X13-X15 and hY3 also have 5 clusters attrition randomly.
 #### Here set beta_j and beta_j+1 are non-linear relationship
 
