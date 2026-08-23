@@ -5,18 +5,13 @@ sim_fried <- function(n_coun, # vector: the numbers of individuals at each clust
                       Sigma, # covariance matrix of covariates
                       sigma, # variance of model noise
                       lambda, # time weights in outcome process
-                      #gamma = c(0.3, 0.5, 0.7), # vector: the parameters of hidden variables u, mild
-                      #gamma = c(0.7, 1.2, 2.0), # Moderate
-                      #gamma = c(2.0, 3.0, 5.0), # vector: the parameters of hidden variables u,
                       gamma = c(3.0, 9.0, 16.0), # vector: the parameters of hidden variables u,
                       rho = c(3.5, 2.0, 10.0)
 ) {
   
   N <- sum(n_coun) # total number
   Z <- matrix(0, ncol = K, nrow = N) #### the dummy variables in linear function.
-  
-  #X <- mvrnorm(N, rep(0, P), Sigma)
-  
+    
   rawvars <- mvrnorm(N, rep(0, P), Sigma)
   X <- pnorm(rawvars)
   
@@ -50,18 +45,15 @@ sim_fried <- function(n_coun, # vector: the numbers of individuals at each clust
   
   
   
-  r_1 <- lambda[1] * (10 * sin(pi * X[,1] * X[,2])  + 20 * (X[,3] - 0.5)^2 + 10 * X[,4] + 5 * X[,5])
-  #mu_1 <- r_1 + eta ##### time point = 0
+  r_1 <- lambda[1] * (10 * sin(pi * X[,1] * X[,2])  + 20 * (X[,3] - 0.5)^2 + 10 * X[,4] + 5 * X[,5]) ##### time point = 0
   
-  r_2 <- lambda[2] * (10 * sin(pi * X[,6] * X[,7]) + 20 * (X[,8] - 0.5)^2 + 10 * X[,9] + 5 * X[,10])
-  #mu_2 <- r_2 + eta ###### time point = 1
+  r_2 <- lambda[2] * (10 * sin(pi * X[,6] * X[,7]) + 20 * (X[,8] - 0.5)^2 + 10 * X[,9] + 5 * X[,10]) ###### time point = 1
   
-  r_3 <- lambda[3] * (10 * sin(pi * X[,11] * X[,12]) + 20 * (X[,13] - 0.5)^2 + 10 * X[,14] + 5 * X[,15])
-  #mu_3 <- r_3 + eta ###### time point = 2
+  r_3 <- lambda[3] * (10 * sin(pi * X[,11] * X[,12]) + 20 * (X[,13] - 0.5)^2 + 10 * X[,14] + 5 * X[,15]) ###### time point = 2
   
   Y1 <- r_1  + eta[,1] + sigma * rnorm(N)
-  Y2 <- r_2 + eta[,2]  + sigma * rnorm(N) #r_1   +  r_2 + eta[,2]  + sigma * rnorm(N)
-  Y3 <- r_3 + eta[,3]  + sigma * rnorm(N) # r_1  +  r_2 +  r_3 + eta[,3]  + sigma * rnorm(N)
+  Y2 <- r_2 + eta[,2]  + sigma * rnorm(N) 
+  Y3 <- r_3 + eta[,3]  + sigma * rnorm(N) 
   
   return( list(df = data.frame(X[,1:5], Y1, X[,c(1:3,9:10)], Y2, X[,c(1:3,14:15)], Y3, Z = Z),
                Beta = Beta) ) # , mu = mu ,  A = A,
