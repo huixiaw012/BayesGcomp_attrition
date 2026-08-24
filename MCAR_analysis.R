@@ -34,7 +34,7 @@ Sig<-matrix(c(c(1,0,0,0,0,a1,0,0,0,0,a2,0,0,0,0),
               c(0,0,0,0,a2,0,0,0,0,a1,0,0,0,0,1)), 15, 15, byrow = TRUE)
 
 
-library(glBART)
+library(GcompGlBART)
 library(foreach)
 library(doParallel)
 library(dplyr)
@@ -62,7 +62,7 @@ doParallel::registerDoParallel(cl)
 # 1) load package + source once per worker
 invisible(parallel::clusterEvalQ(cl, {
  
-  library(glBART)
+  library(GcompGlBART)
   library(rBeta2009)
   library(dplyr)
   library(MASS)
